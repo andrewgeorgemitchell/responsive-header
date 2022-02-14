@@ -76,7 +76,7 @@ const useStyles = createUseStyles({
   },
 });
 
-const HamburgerIcon = () => {
+const HamburgerIcon = ({ openBurger }) => {
   const classes = useStyles();
   const [checked, setChecked] = useState<boolean>(true);
 
@@ -87,6 +87,7 @@ const HamburgerIcon = () => {
         id="menu_checkbox"
         checked={checked}
         onChange={(e) => setChecked(e.target.checked)}
+        onClick={openBurger}
       />
       <label htmlFor="menu_checkbox">
         <div></div>
