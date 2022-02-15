@@ -7,16 +7,14 @@ const useStyles = createUseStyles({
     marginLeft: '1rem',
     padding: 10,
     '@media (max-width: 480px)': {
-      visibility: 'hidden',
+      display: 'none',
     },
   },
   mobileLinks: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
     '@media (min-width: 480px)': {
-      visibility: 'hidden',
+      display: 'none',
     },
+    '@media (max-width: 480px)': {},
   },
 });
 
