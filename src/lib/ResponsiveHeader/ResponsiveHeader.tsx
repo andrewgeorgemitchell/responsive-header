@@ -1,10 +1,11 @@
 import { createUseStyles } from 'react-jss';
 import HamburgerIcon from './HamburgerIcon/HamburgerIcon';
-
+import Link from './Link/Link';
+import { useState } from 'react';
 const cx = (classes: string[]) => classes.join(' ');
 
 const useStyles = createUseStyles<
-  'root' | 'linksCont' | 'link' | 'logo',
+  'root' | 'linksCont' | 'link' | 'logo' | 'hamburger',
   { variant: HeaderVariant },
   {}
 >({
@@ -44,6 +45,19 @@ const useStyles = createUseStyles<
     marginLeft: '1rem',
     padding: 10,
   },
+  hamburger: {
+    marginLeft: ({ variant }) =>
+      variant === HeaderVariant.Default ? '0px' : 'auto',
+    marginRight: ({ variant }) =>
+      variant === HeaderVariant.Default ? '0px' : 'auto',
+    gridArea: 'nav',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    '@media (min-width: 480px)': {
+      visibility: 'hidden',
+    },
+  },
 });
 
 enum HeaderVariant {
@@ -74,6 +88,11 @@ const ResponsiveHeader = ({
   className,
 }: ResponsiveHeaderProps): JSX.Element => {
   const classes = useStyles({ variant });
+  const [open, setOpen] = useState(false);
+
+  const openBurger = () => {
+    setOpen(!open);
+  };
 
   return (
     <nav className={cx([classes.root, className])}>
@@ -81,20 +100,12 @@ const ResponsiveHeader = ({
       <div className={classes.linksCont}>
         {links.map(({ to, text, component: Component }) => (
           <>
-            {Component ? (
-              <Component className={classes.link} to={to}>
-                {text}
-              </Component>
-            ) : (
-              <a className={classes.link} href={to}>
-                {text}
-              </a>
-            )}
+            <Link to={to} text={text} Component={Component} open={open}></Link>
           </>
         ))}
       </div>
-      <div className={classes.linksCont}>
-        <HamburgerIcon />
+      <div className={classes.hamburger}>
+        <HamburgerIcon openBurger={openBurger} />
       </div>
     </nav>
   );
