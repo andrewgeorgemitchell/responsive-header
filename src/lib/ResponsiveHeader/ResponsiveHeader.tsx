@@ -118,6 +118,9 @@ const ResponsiveHeader = ({
           </>
         ))}
       </div>
+      <div className={classes.hamburger}>
+        <HamburgerIcon openBurger={openBurger} />
+      </div>
     </nav>
   );
 };
