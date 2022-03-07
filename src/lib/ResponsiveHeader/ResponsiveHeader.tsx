@@ -30,16 +30,27 @@ const useStyles = createUseStyles<
       variant === HeaderVariant.Default ? '0px' : 'auto',
     marginRight: ({ variant }) =>
       variant === HeaderVariant.Default ? '0px' : 'auto',
+    '@media (max-width: 480px)': {
+      display: 'none',
+    },
   },
   linksCont: {
     marginLeft: ({ variant }) =>
       variant === HeaderVariant.Default ? '0px' : 'auto',
     marginRight: ({ variant }) =>
       variant === HeaderVariant.Default ? '0px' : 'auto',
-    gridArea: 'nav',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    '@media (min-width: 480px)': {
+      gridArea: 'nav',
+      display: 'flex',
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+    },
+    '@media (max-width: 480px)': {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+    },
   },
   link: {
     marginLeft: '1rem',
@@ -50,12 +61,12 @@ const useStyles = createUseStyles<
       variant === HeaderVariant.Default ? '0px' : 'auto',
     marginRight: ({ variant }) =>
       variant === HeaderVariant.Default ? '0px' : 'auto',
-    gridArea: 'nav',
+    gridArea: 0,
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center',
     '@media (min-width: 480px)': {
-      visibility: 'hidden',
+      display: 'none',
     },
   },
 });
@@ -97,6 +108,9 @@ const ResponsiveHeader = ({
   return (
     <nav className={cx([classes.root, className])}>
       {logo && <img className={classes.logo} src={logo.src} alt={logo.alt} />}
+      <div className={classes.hamburger}>
+        <HamburgerIcon openBurger={openBurger} />
+      </div>
       <div className={classes.linksCont}>
         {links.map(({ to, text, component: Component }) => (
           <>
